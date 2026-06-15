@@ -43,3 +43,4 @@ Thumbs.db
 
 # Custom
 *.zip
+package-lock.json
