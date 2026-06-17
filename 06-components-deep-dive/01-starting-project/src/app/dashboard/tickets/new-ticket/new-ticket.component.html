@@ -6,7 +6,7 @@
     <textarea name="request" id="request" rows="3" #textInput></textarea>
   </app-control>
   <p>
-    <button appButton>
+    <button appButton #btn> <!-- This template variable gives you access to the component instance instead of HTMLButtonElement because this button element is a custom component due to the appButton attribute which is set up as the selector in the component class. -->
       Submit
       <span ngProjectAs="icon">→</span>
     </button>
