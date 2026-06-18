@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   Component,
   contentChild,
   ContentChild,
@@ -20,7 +21,7 @@ import {
     '(click)': 'onClick()',
   },
 })
-export class ControlComponent {
+export class ControlComponent implements AfterContentInit {
   // @HostBinding('class') className = 'control';
   // @HostListener('click') onClick() {
   //   console.log('Clicked!');
@@ -31,6 +32,10 @@ export class ControlComponent {
   //   HTMLInputElement | HTMLTextAreaElement
   // >;
   private control = contentChild<ElementRef<HTMLInputElement | HTMLTextAreaElement>>('input');
+
+  ngAfterContentInit() {
+    // You can access the content here no matter if you use the contentChild function or the decorator.
+  }
 
   onClick() {
     console.log('Clicked');
