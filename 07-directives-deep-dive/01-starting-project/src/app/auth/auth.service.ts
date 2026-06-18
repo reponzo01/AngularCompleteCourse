@@ -6,20 +6,44 @@ import { Permission } from './auth.model';
   providedIn: 'root',
 })
 export class AuthService {
-  activePermission = signal<Permission>('guest');
+  // EV Custom:
+  private admin: Permission = 'admin';
+  private user: Permission = 'user';
+  private guest: Permission = 'guest';
+  private adminEmail = 'admin@example.com';
+  private adminPassword = 'admin';
+  private userEmail = 'user@example.com';
+  private userPassword = 'user';
+  activePermission = signal<Permission>(this.guest);
+
+  getAdminEmail(): string {
+    return this.adminEmail;
+  }
+
+  getAdminPassword(): string {
+    return this.adminPassword;
+  }
+
+  getUserEmail(): string {
+    return this.userEmail;
+  }
+
+  getUserPassword(): string {
+    return this.userPassword;
+  }
 
   authenticate(email: string, password: string) {
     console.log(email, password);
-    if (email === 'admin@example.com' && password === 'admin') {
-      this.activePermission.set('admin');
-    } else if (email === 'user@example.com' && password === 'user') {
-      this.activePermission.set('user');
+    if (email === this.adminEmail && password === this.adminPassword) {
+      this.activePermission.set(this.admin);
+    } else if (email === this.userEmail && password === this.userPassword) {
+      this.activePermission.set(this.user);
     } else {
-      this.activePermission.set('guest');
+      this.activePermission.set(this.guest);
     }
   }
 
   logout() {
-    this.activePermission.set('guest');
+    this.activePermission.set(this.guest);
   }
 }

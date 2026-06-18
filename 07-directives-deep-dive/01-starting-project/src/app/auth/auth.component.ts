@@ -11,6 +11,17 @@ import { AuthService } from './auth.service';
   styleUrl: './auth.component.css',
 })
 export class AuthComponent {
+  // EV Custom:
+  fillAdminCreds() {
+    this.email.set(this.authService.getAdminEmail());
+    this.password.set(this.authService.getAdminPassword());
+  }
+
+  fillUserCreds() {
+    this.email.set(this.authService.getUserEmail());
+    this.password.set(this.authService.getUserPassword());
+  }
+
   email = signal('');
   password = signal('');
   private authService = inject(AuthService);
@@ -18,4 +29,6 @@ export class AuthComponent {
   onSubmit() {
     this.authService.authenticate(this.email(), this.password());
   }
+
+
 }
