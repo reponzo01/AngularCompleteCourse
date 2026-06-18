@@ -1,5 +1,7 @@
 import {
   AfterContentInit,
+  afterNextRender,
+  afterRender,
   Component,
   contentChild,
   ContentChild,
@@ -32,6 +34,18 @@ export class ControlComponent implements AfterContentInit {
   //   HTMLInputElement | HTMLTextAreaElement
   // >;
   private control = contentChild<ElementRef<HTMLInputElement | HTMLTextAreaElement>>('input');
+
+  constructor() {
+    afterRender(() => {
+      // After any change in the entire application
+      console.log('afterRender');
+    });
+
+    afterNextRender(() => {
+      // After any next change in the entire application
+      console.log('afterNextRender');
+    });
+  }
 
   ngAfterContentInit() {
     // You can access the content here no matter if you use the contentChild function or the decorator.
