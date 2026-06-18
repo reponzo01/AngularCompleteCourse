@@ -1,11 +1,18 @@
-import { Component, DestroyRef, effect, inject, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  effect,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
   standalone: true,
   imports: [],
   templateUrl: './server-status.component.html',
-  styleUrl: './server-status.component.css'
+  styleUrl: './server-status.component.css',
 })
 export class ServerStatusComponent implements OnInit {
   currentStatus = signal<'online' | 'offline' | 'unknown'>('offline');
@@ -15,6 +22,22 @@ export class ServerStatusComponent implements OnInit {
     effect(() => {
       console.log(this.currentStatus());
     });
+
+    // When working with Signal effects, you sometimes might need to perform some cleanup work before the effect function runs again (e.g., to clear some timer or something like that).
+
+    // Angular's effect() allows you to do that!
+
+    // It does provide you with an onCleanup hook which you can execute as part of your effect function to define what should happen before the effect code runs the next time:
+
+    // effect((onCleanup) => {
+    //   const tasks = getTasks();
+    //   const timer = setTimeout(() => {
+    //     console.log(`Current number of tasks: ${tasks().length}`);
+    //   }, 1000);
+    //   onCleanup(() => {
+    //     clearTimeout(timer);
+    //   });
+    // });
   }
 
   ngOnInit() {
@@ -32,7 +55,7 @@ export class ServerStatusComponent implements OnInit {
 
     this.destroyRef.onDestroy(() => {
       clearInterval(interval);
-    })
+    });
   }
 
   ngAfterViewInit() {
