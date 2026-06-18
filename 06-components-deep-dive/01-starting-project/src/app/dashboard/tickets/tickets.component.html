@@ -2,7 +2,7 @@
   <ul>
     @for (ticket of tickets; track ticket.id) {
       <li>
-        <app-ticket />
+        <app-ticket [data]="ticket"/>
         <!-- Can also use $first, $last, $odd, $even, $count -->
       </li>
     } @empty {
